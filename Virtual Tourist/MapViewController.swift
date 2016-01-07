@@ -33,14 +33,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let touchPoint: CGPoint = sender.locationInView(mapView)
         let touchMapCoordinate = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         
-        let pin = _Pin(coordinate: touchMapCoordinate)
-        
-        do {
-            try pin.save()
-        } catch let error {
-            print("there was an error \(error)")
-            return
-        }
+        let pin = Pin.create()
+        pin.longitude = touchMapCoordinate.longitude
+        pin.latitude = touchMapCoordinate.latitude
+        pin.getPhotos()
+        saveCoreData()
         
         mapView.addAnnotation(pin)
     }
@@ -52,14 +49,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        PhotoFetcher().fetchPhotos(view.annotation!.coordinate)
-        //performSegueWithIdentifier("showPinDetail", sender: view)
+        detailAnnotation = view.annotation
+        performSegueWithIdentifier("showPinDetail", sender: view)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPinDetail" {
             if let dvc = segue.destinationViewController as? LocationDetailViewController {
                 dvc.annotation = detailAnnotation
+                
+                if detailAnnotation is Pin {
+                    let pin = detailAnnotation as! Pin
+                    pin.delegate = dvc
+                }
             }
         }
     }

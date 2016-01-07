@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class LocationDetailViewController: UIViewController {
+class LocationDetailViewController: UIViewController, PhotoReciever {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
@@ -23,20 +23,7 @@ class LocationDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func photoFetcher(fetcher: Fetcher, didFetchPhotoAtDiskURL: String) {
+        // refresh collection from annotation
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -11,6 +11,12 @@ import CoreData
 
 
 class Photo: NSManagedObject {
+    
+    static let NAME = "Photo"
+    
+    class func create() -> Photo {
+        return NSEntityDescription.insertNewObjectForEntityForName(NAME, inManagedObjectContext: AppDelegate.managedContext) as! Photo
+    }
 
     override func prepareForDeletion() {
         super.prepareForDeletion()
