@@ -33,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let touchPoint: CGPoint = sender.locationInView(mapView)
         let touchMapCoordinate = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         
-        let pin = Pin(coordinate: touchMapCoordinate)
+        let pin = _Pin(coordinate: touchMapCoordinate)
         
         do {
             try pin.save()
@@ -52,7 +52,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        performSegueWithIdentifier("showPinDetail", sender: view)
+        PhotoFetcher().fetchPhotos(view.annotation!.coordinate)
+        //performSegueWithIdentifier("showPinDetail", sender: view)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
