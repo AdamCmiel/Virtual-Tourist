@@ -9,21 +9,124 @@
 import UIKit
 import MapKit
 
-class LocationDetailViewController: UIViewController, PhotoReciever {
+let detailCollectionViewReuseIdentifier = "cell"
+let newCollectionDetailLabel = "New Collection"
+let downloadingButtonLabel = "Downloading"
 
-    @IBOutlet weak var collectionView: UICollectionView!
+class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+
+    @IBOutlet weak var photosCollectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var downloadButton: UIButton!
     
-    var annotation: MKAnnotation?
+    @IBAction func collectionButtonPressed(sender: AnyObject) {
+        let pin = annotation!
+        pin.removePhotos(pin.photos!)
+        pin.getPhotos()
+        
+        downloadButton.setTitle(downloadingButtonLabel, forState: .Normal)
+        downloadButton.setTitle(downloadingButtonLabel, forState: .Selected)
+        downloadButton.setTitle(downloadingButtonLabel, forState: .Disabled)
+        downloadButton.enabled = false
+    }
+    
+    var annotation: Pin?
+    
+    var photos: [Photo] {
+        let pinAnnotation = annotation!
+        if pinAnnotation.photos == nil {
+            return []
+        } else {
+            return pinAnnotation.photos!.allObjects as! [Photo]
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let region = MKCoordinateRegion(center: annotation!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+        mapView.setRegion(region, animated: false)
+        mapView.addAnnotation(annotation!)
     }
 
+    func refresh() {
+        photosCollectionView.reloadData()
+        photosCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    // MARK: - MKMapViewDelegate
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        return MKPinAnnotationView(annotation: annotation, reuseIdentifier: "detailCell")
+    }
+    
+    // MARK: - PhotoReciever
+    
     func photoFetcher(fetcher: Fetcher, didFetchPhotoAtDiskURL: String) {
-        // refresh collection from annotation
+        refresh()
+    }
+    
+    func photoFetcher(fetcher: Fetcher, didFetchAllPhotosForLocation: CLLocationCoordinate2D) {
+        downloadButton.setTitle(newCollectionDetailLabel, forState: .Normal)
+        downloadButton.setTitle(newCollectionDetailLabel, forState: .Selected)
+        downloadButton.enabled = true
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    
+    final func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    final func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(detailCollectionViewReuseIdentifier, forIndexPath: indexPath) 
+        
+        let photo = photos[indexPath.row]
+        let diskURL = photo.diskURL!
+        
+        let image = UIImage(contentsOfFile: diskURL)
+        let imageView = UIImageView(frame: cell.bounds)
+        imageView.image = image
+        cell.contentView.addSubview(imageView)
+        return cell
+    }
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        let width = view.bounds.width
+        var boxWidth: CGFloat
+        
+        switch UIApplication.sharedApplication().statusBarOrientation {
+        case .Portrait:
+            fallthrough
+        case .PortraitUpsideDown:
+            boxWidth = floor(width / 3)
+        default:
+            boxWidth = floor(width / 5) - 1.0
+        }
+        
+        return CGSize(width: boxWidth, height: boxWidth)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsZero
+    }
+    
+    final func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    final func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0.0
+    }
+    
+    final func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSizeZero
+    }
+    
+    final func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeZero
     }
 }

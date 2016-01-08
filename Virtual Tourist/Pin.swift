@@ -16,6 +16,7 @@ protocol Fetcher {
 
 protocol PhotoReciever {
     func photoFetcher(fetcher: Fetcher, didFetchPhotoAtDiskURL: String)
+    func photoFetcher(fetcher: Fetcher, didFetchAllPhotosForLocation: CLLocationCoordinate2D)
 }
 
 class Pin: NSManagedObject, MKAnnotation, Fetcher {
@@ -46,13 +47,13 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
             case .Success(let data):
                 let photoUrls = data[PhotoURLsKey] as! [NSURL]
                 var photosToReturn: [String] = []
+                var foundCount = 0
                 
                 photoUrls.forEach { url in
                     PhotoFileManager.fetchFileFromNetwork(url) { result in
                         switch result {
                         case .Success(let data):
                             let photoURLString = data[PhotoFileManager.URLKey] as! String
-                            self.delegate?.photoFetcher(self, didFetchPhotoAtDiskURL: photoURLString)
                             
                             photosToReturn.append(photoURLString)
                             
@@ -63,6 +64,15 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
                             })
                             
                             saveCoreData()
+                            self.delegate?.photoFetcher(self, didFetchPhotoAtDiskURL: photoURLString)
+                            
+                            print("found photo at \(photoURLString)")
+                            
+                            foundCount = photosToReturn.count
+                            
+                            if foundCount == photoUrls.count {
+                                self.delegate?.photoFetcher(self, didFetchAllPhotosForLocation: location)
+                            }
                             
                         case .Failure(let error):
                             fatalError()

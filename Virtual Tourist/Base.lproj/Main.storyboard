@@ -63,7 +63,7 @@
         <!--Location Detail View Controller-->
         <scene sceneID="VS2-Zg-0mv">
             <objects>
-                <viewController id="Mx6-Yq-QpL" customClass="LocationDetailViewController" sceneMemberID="viewController">
+                <viewController id="Mx6-Yq-QpL" customClass="LocationDetailViewController" customModule="Virtual_Tourist" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k6P-b1-yYk"/>
                         <viewControllerLayoutGuide type="bottom" id="Usl-9l-Jyv"/>
@@ -72,6 +72,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fT-hH-PEi">
+                                <rect key="frame" x="256" y="562" width="89" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Downloading"/>
+                                <connections>
+                                    <action selector="collectionButtonPressed:" destination="Mx6-Yq-QpL" eventType="touchUpInside" id="Sfb-LW-5Jc"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wBK-Wn-EnO">
+                                <rect key="frame" x="0.0" y="64" width="600" height="162"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Mx6-Yq-QpL" id="18S-Sa-qrA"/>
+                                </connections>
+                            </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lpa-Bu-yek">
                                 <rect key="frame" x="0.0" y="226" width="600" height="374"/>
                                 <constraints>
@@ -85,7 +99,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="4pA-l7-3u3">
-                                        <rect key="frame" x="0.0" y="64" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -94,15 +108,11 @@
                                         </view>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Mx6-Yq-QpL" id="yux-5S-jsM"/>
+                                    <outlet property="delegate" destination="Mx6-Yq-QpL" id="gTf-XK-TNU"/>
+                                </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fT-hH-PEi">
-                                <rect key="frame" x="256" y="562" width="89" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Downloading"/>
-                            </button>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wBK-Wn-EnO">
-                                <rect key="frame" x="0.0" y="64" width="600" height="162"/>
-                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -118,9 +128,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="button" destination="8fT-hH-PEi" id="2GM-GN-9bg"/>
-                        <outlet property="collectionView" destination="lpa-Bu-yek" id="rXZ-4g-1TS"/>
+                        <outlet property="downloadButton" destination="8fT-hH-PEi" id="JUJ-mh-MvX"/>
                         <outlet property="mapView" destination="wBK-Wn-EnO" id="MLc-Lh-GJd"/>
+                        <outlet property="photosCollectionView" destination="lpa-Bu-yek" id="tVn-Oc-e3Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zm4-lK-XNC" userLabel="First Responder" sceneMemberID="firstResponder"/>

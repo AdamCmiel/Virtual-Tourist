@@ -39,7 +39,7 @@ func fetchPhotos(coordinate: CLLocationCoordinate2D, callback: APICallback) {
         case .Success(let data):
             let photoURLs: [String] = ((data["photos"] as! JSONData)["photo"] as! Array<JSONData>).map { data in
                 let id = data["id"] as! String
-                let farm = data["farm"] as! String
+                let farm = data["farm"] as! Int
                 let server = data["server"] as! String
                 let secret = data["secret"] as! String
                 return "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_q.jpg"

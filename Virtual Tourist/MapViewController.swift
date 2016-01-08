@@ -56,7 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showPinDetail" {
             if let dvc = segue.destinationViewController as? LocationDetailViewController {
-                dvc.annotation = detailAnnotation
+                dvc.annotation = detailAnnotation as! Pin
                 
                 if detailAnnotation is Pin {
                     let pin = detailAnnotation as! Pin
