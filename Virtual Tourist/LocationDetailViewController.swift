@@ -22,7 +22,7 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
     @IBAction func collectionButtonPressed(sender: AnyObject) {
         let pin = annotation!
         pin.removePhotos(pin.photos!)
-        //pin.getPhotos()
+        pin.getPhotosFromFlickr()
         
         downloadButton.setTitle(downloadingButtonLabel, forState: .Normal)
         downloadButton.setTitle(downloadingButtonLabel, forState: .Selected)
@@ -49,11 +49,22 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
         mapView.addAnnotation(annotation!)
         
         photosCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        refresh()
+        
+        if annotation!.hasFetchedAllPhotos {
+            resetButton()
+        }
     }
 
     func refresh() {
         photosCollectionView.reloadData()
         photosCollectionView.collectionViewLayout.invalidateLayout()
+    }
+    
+    func resetButton() {
+        downloadButton.setTitle(newCollectionDetailLabel, forState: .Normal)
+        downloadButton.setTitle(newCollectionDetailLabel, forState: .Selected)
+        downloadButton.enabled = true
     }
     
     // MARK: - MKMapViewDelegate
@@ -69,9 +80,7 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
     }
     
     func photoFetcher(fetcher: Fetcher, didFetchAllPhotosForLocation: CLLocationCoordinate2D) {
-        downloadButton.setTitle(newCollectionDetailLabel, forState: .Normal)
-        downloadButton.setTitle(newCollectionDetailLabel, forState: .Selected)
-        downloadButton.enabled = true
+        resetButton()
     }
     
     // MARK: - UICollectionViewDataSource

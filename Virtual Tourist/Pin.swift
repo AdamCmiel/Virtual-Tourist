@@ -25,6 +25,8 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
     
     var delegate: PhotoReciever?
     
+    var hasFetchedAllPhotos = false
+    
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude!.doubleValue, longitude: longitude!.doubleValue)
     }
@@ -34,6 +36,8 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
     }
     
     func getPhotosFromFlickr() {
+        hasFetchedAllPhotos = false
+        
         guard latitude != nil && longitude != nil else {
             fatalError("trying to get photos before setting latitude, longitude")
         }
@@ -72,6 +76,7 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
                             
                             if foundCount == photoUrls.count {
                                 self.delegate?.photoFetcher(self, didFetchAllPhotosForLocation: location)
+                                self.hasFetchedAllPhotos = true
                             }
                             
                         case .Failure(let error):

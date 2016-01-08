@@ -72,14 +72,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fT-hH-PEi">
-                                <rect key="frame" x="256" y="562" width="89" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Downloading"/>
-                                <connections>
-                                    <action selector="collectionButtonPressed:" destination="Mx6-Yq-QpL" eventType="touchUpInside" id="Sfb-LW-5Jc"/>
-                                </connections>
-                            </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wBK-Wn-EnO">
                                 <rect key="frame" x="0.0" y="64" width="600" height="162"/>
                                 <connections>
@@ -113,12 +105,20 @@
                                     <outlet property="delegate" destination="Mx6-Yq-QpL" id="gTf-XK-TNU"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fT-hH-PEi">
+                                <rect key="frame" x="256" y="562" width="89" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Downloading"/>
+                                <connections>
+                                    <action selector="collectionButtonPressed:" destination="Mx6-Yq-QpL" eventType="touchUpInside" id="Sfb-LW-5Jc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wBK-Wn-EnO" firstAttribute="top" secondItem="k6P-b1-yYk" secondAttribute="bottom" id="L18-UG-ftd"/>
                             <constraint firstItem="Usl-9l-Jyv" firstAttribute="top" secondItem="8fT-hH-PEi" secondAttribute="bottom" constant="8" id="MUh-uS-GvN"/>
-                            <constraint firstItem="lpa-Bu-yek" firstAttribute="leading" secondItem="NyV-zk-7Ky" secondAttribute="leadingMargin" id="Ujp-oY-CtT"/>
+                            <constraint firstItem="lpa-Bu-yek" firstAttribute="leading" secondItem="NyV-zk-7Ky" secondAttribute="leadingMargin" constant="-20" id="Ujp-oY-CtT"/>
                             <constraint firstItem="wBK-Wn-EnO" firstAttribute="leading" secondItem="NyV-zk-7Ky" secondAttribute="leadingMargin" constant="-20" id="WaR-t0-azd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lpa-Bu-yek" secondAttribute="trailing" constant="-20" id="ZVk-IZ-v5o"/>
                             <constraint firstItem="8fT-hH-PEi" firstAttribute="centerX" secondItem="NyV-zk-7Ky" secondAttribute="centerX" id="ZXN-2f-RfG"/>
