@@ -57,20 +57,31 @@ struct PhotoFileManager {
     static let URLKey = "url"
     
     static func fetchFileFromNetwork(URL: NSURL, callback: APICallback) {
-        API.getData(URL) { result in
-            switch result {
-            case .Success(let data):
-                let fileData: NSData = data["data"] as! NSData
-                let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-                if let image = UIImage(data: fileData) {
-                    let fileURL = documentsURL.URLByAppendingPathComponent(URL.path!)
-                    if let jpegRepresentation = UIImageJPEGRepresentation(image, 0.8) {
-                        jpegRepresentation.writeToURL(fileURL, atomically: true)
-                        callback(.Success([PhotoFileManager.URLKey: fileURL]))
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+            API.getData(URL) { result in
+                switch result {
+                case .Success(let data):
+                    let fileData: NSData = data["data"] as! NSData
+                    let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+                    if let image = UIImage(data: fileData) {
+                        let fileURL = documentsURL.URLByAppendingPathComponent(URL.path!)
+                        if let jpegRepresentation = UIImageJPEGRepresentation(image, 0.8) {
+                            jpegRepresentation.writeToURL(fileURL, atomically: true)
+                            
+                            dispatch_async(dispatch_get_main_queue()) {
+                                callback(.Success([PhotoFileManager.URLKey: fileURL.absoluteString]))
+                            }
+                            
+                            return
+                        }
                     }
+                    
+                    let error = NSError(domain: "could not decode data", code: 1, userInfo: nil)
+                    let returnError = APIError(errorType: .ResponseCode, error: error)
+                    callback(.Failure(returnError))
+                case .Failure(let error):
+                    callback(.Failure(error))
                 }
-            case .Failure(let error):
-                callback(.Failure(error))
             }
         }
     }

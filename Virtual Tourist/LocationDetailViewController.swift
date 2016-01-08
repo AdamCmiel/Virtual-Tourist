@@ -22,7 +22,7 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
     @IBAction func collectionButtonPressed(sender: AnyObject) {
         let pin = annotation!
         pin.removePhotos(pin.photos!)
-        pin.getPhotos()
+        //pin.getPhotos()
         
         downloadButton.setTitle(downloadingButtonLabel, forState: .Normal)
         downloadButton.setTitle(downloadingButtonLabel, forState: .Selected)
@@ -47,6 +47,8 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
         let region = MKCoordinateRegion(center: annotation!.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
         mapView.setRegion(region, animated: false)
         mapView.addAnnotation(annotation!)
+        
+        photosCollectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
 
     func refresh() {

@@ -44,13 +44,13 @@ struct API {
         headers: [String: String]? = nil,
         completion: APICallback) {
             
+        print(URL)
+            
         let request = NSMutableURLRequest(URL: URL)
         let session = NSURLSession.sharedSession()
         request.HTTPMethod = method.rawValue
             
-        let callback: APICallback = { response in
-            dispatch_async(dispatch_get_main_queue(), { completion(response) })
-        }
+        let callback: APICallback = completion
             
         session.dataTaskWithRequest(request, completionHandler: { data, response, error -> Void in
             guard error == nil else {
@@ -68,7 +68,7 @@ struct API {
             default:
                 callback(APIResponse.Failure(APIError(errorType: .ResponseCode, error: nil)))
             }
-        })
+        }).resume()
     }
     
     static func request(method: Method,
@@ -76,6 +76,8 @@ struct API {
         parameters: [String: AnyObject]? = nil,
         headers: [String: String]? = nil,
         completion: APICallback) {
+            
+        print(URL.absoluteString)
         
         let request = NSMutableURLRequest(URL: URL)
         let session = NSURLSession.sharedSession()
@@ -145,6 +147,6 @@ struct API {
     }
 
     static func getData(endpoint: EndPoint, completion: APICallback) {
-        return formRawRequest(.GET, endpoint, completion: completion)
+        return formRawRequest(.GET, endpoint, parameters: nil, headers: nil, completion: completion)
     }
 }

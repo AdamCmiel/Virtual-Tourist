@@ -30,13 +30,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBAction func onLongPress(sender: UILongPressGestureRecognizer) {
         guard sender.state == .Began else { return }
+        
         let touchPoint: CGPoint = sender.locationInView(mapView)
         let touchMapCoordinate = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         
         let pin = Pin.create()
         pin.longitude = touchMapCoordinate.longitude
         pin.latitude = touchMapCoordinate.latitude
-        pin.getPhotos()
+        pin.getPhotosFromFlickr()
         saveCoreData()
         
         mapView.addAnnotation(pin)

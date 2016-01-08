@@ -11,9 +11,7 @@ import CoreData
 import Foundation
 import CoreLocation
 
-protocol Fetcher {
-}
-
+protocol Fetcher {}
 protocol PhotoReciever {
     func photoFetcher(fetcher: Fetcher, didFetchPhotoAtDiskURL: String)
     func photoFetcher(fetcher: Fetcher, didFetchAllPhotosForLocation: CLLocationCoordinate2D)
@@ -35,7 +33,7 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
         return NSEntityDescription.insertNewObjectForEntityForName(NAME, inManagedObjectContext: AppDelegate.managedContext) as! Pin
     }
     
-    func getPhotos() {
+    func getPhotosFromFlickr() {
         guard latitude != nil && longitude != nil else {
             fatalError("trying to get photos before setting latitude, longitude")
         }
@@ -48,6 +46,8 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
                 let photoUrls = data[PhotoURLsKey] as! [NSURL]
                 var photosToReturn: [String] = []
                 var foundCount = 0
+                
+                print(photoUrls.count)
                 
                 photoUrls.forEach { url in
                     PhotoFileManager.fetchFileFromNetwork(url) { result in
