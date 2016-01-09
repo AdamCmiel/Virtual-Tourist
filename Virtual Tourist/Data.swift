@@ -64,7 +64,9 @@ struct PhotoFileManager {
                     let fileData: NSData = data["data"] as! NSData
                     let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
                     if let image = UIImage(data: fileData) {
-                        let fileURL = documentsURL.URLByAppendingPathComponent(URL.path!.stringByReplacingOccurrencesOfString("/", withString: "_"))
+                        
+                        let imagePathURL = URL.path!.stringByReplacingOccurrencesOfString("/", withString: "_")
+                        let fileURL = documentsURL.URLByAppendingPathComponent(imagePathURL)
                         if let jpegRepresentation = UIImageJPEGRepresentation(image, 0.8) {
                             let didWrite = jpegRepresentation.writeToURL(fileURL, atomically: true)
                             
@@ -73,7 +75,7 @@ struct PhotoFileManager {
                             }
                             
                             dispatch_async(dispatch_get_main_queue()) {
-                                callback(.Success([PhotoFileManager.URLKey: fileURL.absoluteString]))
+                                callback(.Success([PhotoFileManager.URLKey: imagePathURL]))
                             }
                             
                             return
@@ -88,6 +90,13 @@ struct PhotoFileManager {
                 }
             }
         }
+    }
+    
+    static func fetchFileFromDisc(urlString: String) -> NSData? {
+        let manager = NSFileManager.defaultManager()
+        let documentsURL = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+        let imagePathURL = documentsURL.URLByAppendingPathComponent(urlString)
+        return NSData(contentsOfURL: imagePathURL)
     }
     
     static func removeFileFromDisc(URL: NSURL) throws {
