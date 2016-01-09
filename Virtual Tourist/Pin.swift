@@ -25,7 +25,16 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
     
     var delegate: PhotoReciever?
     
-    var hasFetchedAllPhotos = false
+    var _hasFetchedAllPhotos = false
+    
+    var hasFetchedAllPhotos: Bool {
+        get { return Bool(hasFetchedPhotos!) }
+        set(h) {
+            hasFetchedPhotos = h
+            saveCoreData()
+        }
+        
+    }
     
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude!.doubleValue, longitude: longitude!.doubleValue)
@@ -33,6 +42,18 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
     
     class func create() -> Pin {
         return NSEntityDescription.insertNewObjectForEntityForName(NAME, inManagedObjectContext: AppDelegate.managedContext) as! Pin
+    }
+    
+    class func all() -> [Pin] {
+        let context = AppDelegate.managedContext
+        let request = NSFetchRequest(entityName: "Pin")
+        
+        do {
+            return try context.executeFetchRequest(request) as! [Pin]
+        } catch let error {
+            print(error)
+            return []
+        }
     }
     
     func getPhotosFromFlickr() {

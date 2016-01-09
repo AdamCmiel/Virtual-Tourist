@@ -14,20 +14,10 @@ let kPinReuseIdentifier = "pin"
 
 class MapViewController: UIViewController, MKMapViewDelegate {
 
-    @IBOutlet weak var mapView: MKMapView!
-    
     var detailAnnotation: MKAnnotation?
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
+    @IBOutlet weak var mapView: MKMapView!
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
     @IBAction func onLongPress(sender: UILongPressGestureRecognizer) {
         guard sender.state == .Began else { return }
         
@@ -43,15 +33,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotation(pin)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: kPinReuseIdentifier)
-        pinAnnotation.animatesDrop = true
-        return pinAnnotation
+    // MARK: - UIViewController
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        mapView.setRegion(MapPersistence.region, animated: false)
+        mapView.addAnnotations(MapPersistence.annotations)
     }
     
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        detailAnnotation = view.annotation
-        performSegueWithIdentifier("showPinDetail", sender: view)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -63,5 +56,23 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    // MARK: - MKMapViewDelegate
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: kPinReuseIdentifier)
+        pinAnnotation.animatesDrop = true
+        return pinAnnotation
+    }
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        detailAnnotation = view.annotation
+        performSegueWithIdentifier("showPinDetail", sender: view)
+    }
+    
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        MapPersistence.region = mapView.region
+    }
+    
 }
 

@@ -15,6 +15,7 @@ import CoreData
 extension Pin {
     @NSManaged var latitude: NSNumber?
     @NSManaged var longitude: NSNumber?
+    @NSManaged var hasFetchedPhotos: NSNumber?
     @NSManaged var photos: NSSet?
     
     @NSManaged func addPhotos(photos: NSSet)
