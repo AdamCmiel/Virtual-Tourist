@@ -88,6 +88,20 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
         resetButton()
     }
     
+    // MARK: - UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let photoToRemove = photos[indexPath.row]
+        let context = AppDelegate.managedContext
+        
+        context.deleteObject(photoToRemove)
+        let pin = photoToRemove.pin
+        pin?.removePhotos(NSSet(object: photoToRemove))
+        
+        saveCoreData()
+        refresh()
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     final func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -96,12 +110,12 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
     
     final func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(detailCollectionViewReuseIdentifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.redColor()
         
         let photo = photos[indexPath.row]
         let diskURL = photo.diskURL!
         
-        let image = UIImage(contentsOfFile: diskURL)
+        let imageData = NSData(contentsOfURL: NSURL(string: diskURL)!)
+        let image = UIImage(data: imageData!)
         let imageView = UIImageView(frame: cell.bounds)
         imageView.image = image
         cell.contentView.addSubview(imageView)

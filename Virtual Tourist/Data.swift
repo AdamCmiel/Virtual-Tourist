@@ -64,9 +64,13 @@ struct PhotoFileManager {
                     let fileData: NSData = data["data"] as! NSData
                     let documentsURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
                     if let image = UIImage(data: fileData) {
-                        let fileURL = documentsURL.URLByAppendingPathComponent(URL.path!)
+                        let fileURL = documentsURL.URLByAppendingPathComponent(URL.path!.stringByReplacingOccurrencesOfString("/", withString: "_"))
                         if let jpegRepresentation = UIImageJPEGRepresentation(image, 0.8) {
-                            jpegRepresentation.writeToURL(fileURL, atomically: true)
+                            let didWrite = jpegRepresentation.writeToURL(fileURL, atomically: true)
+                            
+                            if (!didWrite) {
+                                fatalError("did not write photo to disk")
+                            }
                             
                             dispatch_async(dispatch_get_main_queue()) {
                                 callback(.Success([PhotoFileManager.URLKey: fileURL.absoluteString]))
