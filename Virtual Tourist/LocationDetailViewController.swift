@@ -114,8 +114,7 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
         let photo = photos[indexPath.row]
         let diskURL = photo.diskURL!
         
-        let imageData = PhotoFileManager.fetchFileFromDisc(diskURL)
-        let image = UIImage(data: imageData!)
+        let image = PhotoFileManager.sharedManager.fetchFileFromDisc(diskURL)
         let imageView = UIImageView(frame: cell.bounds)
         imageView.image = image
         cell.contentView.addSubview(imageView)

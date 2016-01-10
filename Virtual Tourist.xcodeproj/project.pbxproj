@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7747DF301C4209F50044E6EA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7747DF2F1C4209F50044E6EA /* ImageCache.swift */; };
+		7747DF311C420D4E0044E6EA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7747DF2F1C4209F50044E6EA /* ImageCache.swift */; };
+		7747DF321C420D500044E6EA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7747DF2F1C4209F50044E6EA /* ImageCache.swift */; };
+		7747DF341C420E730044E6EA /* MapPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7747DF331C420E730044E6EA /* MapPersistence.swift */; };
+		7747DF351C420E730044E6EA /* MapPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7747DF331C420E730044E6EA /* MapPersistence.swift */; };
+		7747DF361C420E730044E6EA /* MapPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7747DF331C420E730044E6EA /* MapPersistence.swift */; };
 		778651791C3E201900E77E5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651781C3E201900E77E5C /* AppDelegate.swift */; };
 		7786517B1C3E201900E77E5C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7786517A1C3E201900E77E5C /* MapViewController.swift */; };
 		7786517E1C3E201900E77E5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7786517C1C3E201900E77E5C /* Main.storyboard */; };
@@ -21,9 +27,9 @@
 		778651AE1C3E223700E77E5C /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651AD1C3E223700E77E5C /* MapState.swift */; };
 		778651AF1C3E223700E77E5C /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651AD1C3E223700E77E5C /* MapState.swift */; };
 		778651B01C3E223700E77E5C /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651AD1C3E223700E77E5C /* MapState.swift */; };
-		778651B21C3E29E900E77E5C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B11C3E29E900E77E5C /* Data.swift */; };
-		778651B31C3E29E900E77E5C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B11C3E29E900E77E5C /* Data.swift */; };
-		778651B41C3E29E900E77E5C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B11C3E29E900E77E5C /* Data.swift */; };
+		778651B21C3E29E900E77E5C /* PhotoFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B11C3E29E900E77E5C /* PhotoFileManager.swift */; };
+		778651B31C3E29E900E77E5C /* PhotoFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B11C3E29E900E77E5C /* PhotoFileManager.swift */; };
+		778651B41C3E29E900E77E5C /* PhotoFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B11C3E29E900E77E5C /* PhotoFileManager.swift */; };
 		778651B51C3E2C1500E77E5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651781C3E201900E77E5C /* AppDelegate.swift */; };
 		778651B61C3E2C1600E77E5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651781C3E201900E77E5C /* AppDelegate.swift */; };
 		778651B91C3E381400E77E5C /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 778651B71C3E381400E77E5C /* Pin+CoreDataProperties.swift */; };
@@ -61,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7747DF2F1C4209F50044E6EA /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		7747DF331C420E730044E6EA /* MapPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapPersistence.swift; path = "Virtual Tourist/MapPersistence.swift"; sourceTree = "<group>"; };
 		778651751C3E201900E77E5C /* Virtual Tourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Tourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		778651781C3E201900E77E5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7786517A1C3E201900E77E5C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -77,7 +85,7 @@
 		7786519D1C3E201900E77E5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		778651A91C3E20BE00E77E5C /* LocationDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailViewController.swift; sourceTree = "<group>"; };
 		778651AD1C3E223700E77E5C /* MapState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
-		778651B11C3E29E900E77E5C /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		778651B11C3E29E900E77E5C /* PhotoFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFileManager.swift; sourceTree = "<group>"; };
 		778651B71C3E381400E77E5C /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		778651B81C3E381400E77E5C /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 		778651BF1C3E39CB00E77E5C /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -113,6 +121,7 @@
 		7786516C1C3E201900E77E5C = {
 			isa = PBXGroup;
 			children = (
+				7747DF331C420E730044E6EA /* MapPersistence.swift */,
 				778651771C3E201900E77E5C /* Virtual Tourist */,
 				7786518F1C3E201900E77E5C /* Virtual TouristTests */,
 				7786519A1C3E201900E77E5C /* Virtual TouristUITests */,
@@ -139,10 +148,11 @@
 				778651C01C3E39CB00E77E5C /* Photo.swift */,
 				778651781C3E201900E77E5C /* AppDelegate.swift */,
 				7786517A1C3E201900E77E5C /* MapViewController.swift */,
-				778651B11C3E29E900E77E5C /* Data.swift */,
+				778651B11C3E29E900E77E5C /* PhotoFileManager.swift */,
 				7786517C1C3E201900E77E5C /* Main.storyboard */,
 				778651A91C3E20BE00E77E5C /* LocationDetailViewController.swift */,
 				778651AD1C3E223700E77E5C /* MapState.swift */,
+				7747DF2F1C4209F50044E6EA /* ImageCache.swift */,
 				778651821C3E201900E77E5C /* Assets.xcassets */,
 				778651841C3E201900E77E5C /* LaunchScreen.storyboard */,
 				778651871C3E201900E77E5C /* Info.plist */,
@@ -303,12 +313,14 @@
 			files = (
 				778651C91C3E4B2A00E77E5C /* API.swift in Sources */,
 				778651AA1C3E20BE00E77E5C /* LocationDetailViewController.swift in Sources */,
-				778651B21C3E29E900E77E5C /* Data.swift in Sources */,
+				778651B21C3E29E900E77E5C /* PhotoFileManager.swift in Sources */,
 				7786517B1C3E201900E77E5C /* MapViewController.swift in Sources */,
 				778651BC1C3E381400E77E5C /* Pin.swift in Sources */,
 				778651C41C3E39CB00E77E5C /* Photo.swift in Sources */,
+				7747DF301C4209F50044E6EA /* ImageCache.swift in Sources */,
 				778651B91C3E381400E77E5C /* Pin+CoreDataProperties.swift in Sources */,
 				778651811C3E201900E77E5C /* Virtual_Tourist.xcdatamodeld in Sources */,
+				7747DF341C420E730044E6EA /* MapPersistence.swift in Sources */,
 				778651C11C3E39CB00E77E5C /* Photo+CoreDataProperties.swift in Sources */,
 				778651791C3E201900E77E5C /* AppDelegate.swift in Sources */,
 				778651AE1C3E223700E77E5C /* MapState.swift in Sources */,
@@ -319,16 +331,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7747DF311C420D4E0044E6EA /* ImageCache.swift in Sources */,
 				778651BD1C3E381400E77E5C /* Pin.swift in Sources */,
 				778651AF1C3E223700E77E5C /* MapState.swift in Sources */,
 				778651BA1C3E381400E77E5C /* Pin+CoreDataProperties.swift in Sources */,
 				778651C51C3E39CB00E77E5C /* Photo.swift in Sources */,
 				778651CA1C3E4B2A00E77E5C /* API.swift in Sources */,
+				7747DF351C420E730044E6EA /* MapPersistence.swift in Sources */,
 				778651AB1C3E20BE00E77E5C /* LocationDetailViewController.swift in Sources */,
 				778651911C3E201900E77E5C /* Virtual_TouristTests.swift in Sources */,
 				778651B51C3E2C1500E77E5C /* AppDelegate.swift in Sources */,
 				778651C21C3E39CB00E77E5C /* Photo+CoreDataProperties.swift in Sources */,
-				778651B31C3E29E900E77E5C /* Data.swift in Sources */,
+				778651B31C3E29E900E77E5C /* PhotoFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,16 +350,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7747DF321C420D500044E6EA /* ImageCache.swift in Sources */,
 				778651BE1C3E381400E77E5C /* Pin.swift in Sources */,
 				778651B01C3E223700E77E5C /* MapState.swift in Sources */,
 				778651BB1C3E381400E77E5C /* Pin+CoreDataProperties.swift in Sources */,
 				778651C61C3E39CB00E77E5C /* Photo.swift in Sources */,
 				778651CB1C3E4B2A00E77E5C /* API.swift in Sources */,
+				7747DF361C420E730044E6EA /* MapPersistence.swift in Sources */,
 				778651AC1C3E20BE00E77E5C /* LocationDetailViewController.swift in Sources */,
 				7786519C1C3E201900E77E5C /* Virtual_TouristUITests.swift in Sources */,
 				778651B61C3E2C1600E77E5C /* AppDelegate.swift in Sources */,
 				778651C31C3E39CB00E77E5C /* Photo+CoreDataProperties.swift in Sources */,
-				778651B41C3E29E900E77E5C /* Data.swift in Sources */,
+				778651B41C3E29E900E77E5C /* PhotoFileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,6 +572,7 @@
 				778651A21C3E201900E77E5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		778651A31C3E201900E77E5C /* Build configuration list for PBXNativeTarget "Virtual TouristTests" */ = {
 			isa = XCConfigurationList;
@@ -564,6 +581,7 @@
 				778651A51C3E201900E77E5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		778651A61C3E201900E77E5C /* Build configuration list for PBXNativeTarget "Virtual TouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -572,6 +590,7 @@
 				778651A81C3E201900E77E5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

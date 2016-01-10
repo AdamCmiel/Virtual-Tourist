@@ -9,7 +9,7 @@
 import MapKit
 import CoreData
 import Foundation
-import CoreLocation
+import struct CoreLocation.CLLocationCoordinate2D
 
 protocol Fetcher {}
 protocol PhotoReciever {
@@ -65,17 +65,17 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
         
         let location = CLLocationCoordinate2D(latitude: latitude!.doubleValue, longitude: longitude!.doubleValue)
         
-        fetchPhotos(location) { result in
+        PhotoFileManager.sharedManager.fetchPhotos(location) { result in
             switch result {
             case .Success(let data):
-                let photoUrls = data[PhotoURLsKey] as! [NSURL]
+                let photoUrls = data[PhotoFileManager.PhotoURLsKey] as! [NSURL]
                 var photosToReturn: [String] = []
                 var foundCount = 0
                 
                 print(photoUrls.count)
                 
                 photoUrls.forEach { url in
-                    PhotoFileManager.fetchFileFromNetwork(url) { result in
+                    PhotoFileManager.sharedManager.fetchFileFromNetwork(url) { result in
                         switch result {
                         case .Success(let data):
                             let photoURLString = data[PhotoFileManager.URLKey] as! String
