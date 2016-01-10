@@ -71,28 +71,31 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
                 let photoUrls = data[PhotoFileManager.PhotoURLsKey] as! [NSURL]
                 var photosToReturn: [String] = []
                 var foundCount = 0
+                var closureCount = 0
                 
                 print(photoUrls.count)
                 
                 photoUrls.forEach { url in
                     PhotoFileManager.sharedManager.fetchFileFromNetwork(url) { result in
+                        closureCount++
+                        
                         switch result {
                         case .Success(let data):
                             let photoURLString = data[PhotoFileManager.URLKey] as! String
                             
                             photosToReturn.append(photoURLString)
                             
-                            self.photos = NSSet(array: photosToReturn.map {
-                                let photo = Photo.create()
-                                photo.diskURL = $0
-                                return photo
-                            })
                             
-                            saveCoreData()
                             self.delegate?.photoFetcher(self, didFetchPhotoAtDiskURL: photoURLString)
                             
                             print("found photo at \(photoURLString)")
                             
+                            
+                        case .Failure(let error):
+                            fatalError()
+                        }
+                        
+                        if closureCount == photoUrls.count {
                             foundCount = photosToReturn.count
                             
                             if foundCount == photoUrls.count {
@@ -100,11 +103,16 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
                                 self.hasFetchedAllPhotos = true
                             }
                             
-                        case .Failure(let error):
-                            fatalError()
+                            self.photos = NSSet(array: photosToReturn.map {
+                                let photo = Photo.create()
+                                photo.diskURL = $0
+                                return photo
+                            })
+                            saveCoreData()
                         }
                     }
                 }
+                
             case .Failure(let error):
                 fatalError()
             }
