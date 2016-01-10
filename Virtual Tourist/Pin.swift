@@ -56,6 +56,11 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
         }
     }
     
+    func incrementPage() {
+        page = NSNumber(integer: page!.integerValue + 1)
+        saveCoreData()
+    }
+    
     func getPhotosFromFlickr() {
         hasFetchedAllPhotos = false
         
@@ -65,7 +70,7 @@ class Pin: NSManagedObject, MKAnnotation, Fetcher {
         
         let location = CLLocationCoordinate2D(latitude: latitude!.doubleValue, longitude: longitude!.doubleValue)
         
-        PhotoFileManager.sharedManager.fetchPhotos(location) { result in
+        PhotoFileManager.sharedManager.fetchPhotos(location, page: page!.integerValue) { result in
             switch result {
             case .Success(let data):
                 let photoUrls = data[PhotoFileManager.PhotoURLsKey] as! [NSURL]

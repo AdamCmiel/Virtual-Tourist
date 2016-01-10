@@ -22,6 +22,10 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
     @IBAction func collectionButtonPressed(sender: AnyObject) {
         let pin = annotation!
         pin.removePhotos(pin.photos!)
+        
+        refresh()
+        
+        pin.incrementPage()
         pin.getPhotosFromFlickr()
         
         downloadButton.setTitle(downloadingButtonLabel, forState: .Normal)

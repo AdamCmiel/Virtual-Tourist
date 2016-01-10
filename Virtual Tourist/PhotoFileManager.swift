@@ -28,13 +28,14 @@ struct PhotoFileManager {
     let fileManager = NSFileManager.defaultManager()
     let cache = ImageCache()
     
-    func fetchPhotos(coordinate: CLLocationCoordinate2D, callback: APICallback) {
+    func fetchPhotos(coordinate: CLLocationCoordinate2D, page: Int, callback: APICallback) {
         let endPoint = NSBundle.mainBundle().infoDictionary!["FlickrAPIEndpoint"] as! String
         let queryDict = NSBundle.mainBundle().infoDictionary!["FlickrAPIQuery"] as! NSDictionary
         
         let mutableQueryDict = NSMutableDictionary(dictionary: queryDict)
         mutableQueryDict["lat"] = "\(coordinate.latitude)"
         mutableQueryDict["lon"] = "\(coordinate.longitude)"
+        mutableQueryDict["page"] = "\(page)"
         
         let components = NSURLComponents(string: endPoint)!
         components.queryItems = mutableQueryDict.flatMap { (key, value) in
