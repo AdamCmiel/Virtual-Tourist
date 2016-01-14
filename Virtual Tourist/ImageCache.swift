@@ -50,12 +50,11 @@ class ImageCache {
             do {
                 try NSFileManager.defaultManager().removeItemAtPath(path)
                 print("deleted file at \(path)")
+                return true
             } catch _ {
                 print("failed to delete file at \(path)")
                 return false
             }
-            
-            return false
         }
         
         // Otherwise, keep the image in memory

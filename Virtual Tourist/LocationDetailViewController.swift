@@ -21,7 +21,15 @@ class LocationDetailViewController: UIViewController, PhotoReciever, MKMapViewDe
     
     @IBAction func collectionButtonPressed(sender: AnyObject) {
         let pin = annotation!
+        let photosToRemove = pin.photos!.copy() as! NSSet
         pin.removePhotos(pin.photos!)
+        
+        let context = AppDelegate.managedContext
+        
+        photosToRemove.forEach {
+            context.deleteObject($0 as! Photo)
+            saveCoreData()
+        }
         
         refresh()
         

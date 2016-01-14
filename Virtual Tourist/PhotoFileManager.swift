@@ -98,7 +98,9 @@ struct PhotoFileManager {
     
      func removeFileFromDisc(path: String) {
         let didSave = cache.storeImage(nil, withIdentifier: path)
-        print("saved path \(path): \(didSave)")
+        if !didSave {
+            fatalError("did not remove file from disk")
+        }
     }
     
      func URLOnDisk(path: String) -> NSURL {
